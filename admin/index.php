@@ -3,25 +3,25 @@ include_once('../includes/config.php');
 // Code for login 
 if(isset($_POST['login']))
 {
-  $adminusername=$_POST['username'];
-  $pass=md5($_POST['password']);
-$ret=mysqli_query($con,"SELECT * FROM admin WHERE username='$adminusername' and password='$pass'");
-$num=mysqli_fetch_array($ret);
-if($num>0)
-{
-$extra="dashboard.php";
-$_SESSION['login']=$_POST['username'];
-$_SESSION['adminid']=$num['id'];
-echo "<script>window.location.href='".$extra."'</script>";
-exit();
-}
-else
-{
-echo "<script>alert('Invalid username or password');</script>";
-$extra="index.php";
-echo "<script>window.location.href='".$extra."'</script>";
-exit();
-}
+    $adminusername=$_POST['username'];
+    $pass=md5($_POST['password']);
+    $ret=mysqli_query($con,"SELECT * FROM admin WHERE username='$adminusername' and password='$pass'");
+    $num=mysqli_fetch_array($ret);
+    if($num>0)
+    {
+        $extra="dashboard.php";
+        $_SESSION['login']=$_POST['username'];
+        $_SESSION['adminid']=$num['id'];
+        echo "<script>window.location.href='".$extra."'</script>";
+        exit();
+    }
+    else
+    {
+        echo "<script>alert('Invalid username or password');</script>";
+        $extra="index.php";
+        echo "<script>window.location.href='".$extra."'</script>";
+        exit();
+    }
 }
 ?>
 
@@ -46,32 +46,30 @@ exit();
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
 
-<div class="card-header">
-<h2 align="center">Registration and Login System</h2>
-<hr />
-    <h3 class="text-center font-weight-light my-4">Admin Login</h3></div>
+                                    <div class="card-header">
+                                        <h2 align="center">Registration and Login System</h2>
+                                        <hr />
+                                        <h3 class="text-center font-weight-light my-4">Admin Login</h3>
+                                    </div>
                                     <div class="card-body">
                                         
                                         <form method="post">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" name="username" type="text" placeholder="Username"  required/>
+                                                <label for="inputEmail">Username</label>
+                                            </div>
                                             
-<div class="form-floating mb-3">
-<input class="form-control" name="username" type="text" placeholder="Username"  required/>
-<label for="inputEmail">Username</label>
-</div>
-                                            
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" name="password" type="password" placeholder="Password" required />
+                                                <label for="inputPassword">Password</label>
+                                            </div>
 
-<div class="form-floating mb-3">
-<input class="form-control" name="password" type="password" placeholder="Password" required />
-<label for="inputPassword">Password</label>
-</div>
-
-
-<div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-<a class="small" href="password-recovery.php">Forgot Password?</a>
-<button class="btn btn-primary" name="login" type="submit">Login</button>
-</div>
-</form>
-</div>
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <a class="small" href="password-recovery.php">Forgot Password?</a>
+                                                <button class="btn btn-primary" name="login" type="submit">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="../index.php">Back to Home Page</a></div>
                                     </div>

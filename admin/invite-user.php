@@ -4,20 +4,6 @@ include_once('send-email.php');
 if (strlen($_SESSION['adminid']==0)) {
   header('location:logout.php');
   } else{
-//Code for Updation 
-// if(isset($_POST['update']))
-// {
-//     $fname=$_POST['fname'];
-//     $lname=$_POST['lname'];
-//     $contact=$_POST['contact'];
-//     $userid=$_GET['uid'];
-//     $msg=mysqli_query($con,"update users set fname='$fname',lname='$lname',contactno='$contact' where id='$userid'");
-//     if($msg)
-//     {
-//         echo "<script>alert('Profile updated successfully');</script>";
-//         echo "<script type='text/javascript'> document.location = 'manage-users.php'; </script>";
-//     }
-// } 
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -52,6 +52,8 @@ CREATE TABLE `users` (
   `lname` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(300) DEFAULT NULL,
+  `is_approve` tinyint(1) NOT NULL,
+  `is_verified` tinyint(1) NOT NULL,
   `contactno` varchar(11) DEFAULT NULL,
   `posting_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -60,9 +62,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `contactno`, `posting_date`) VALUES
-(1, 'Rahul', 'Kumar', 'rahulj23@gmail.com', 'Test@123', '1234563210', '2024-02-18 06:15:52'),
-(2, 'John', 'Doe', 'johndoe12@gamil.com', 'Test@12345', '4563210236', '2024-02-19 06:35:03');
+INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `is_approve`, `is_approve`,`contactno`, `posting_date`) VALUES
+(1, 'Rahul', 'Kumar', 'rahulj23@yopmail.com', 'Test@123', '1', '0', '1234563210', '2024-02-18 06:15:52'),
+(2, 'John', 'Doe', 'johndoe12@yopmail.com', 'Test@12345', '1', '0', '4563210236', '2024-02-19 06:35:03');
 
 --
 -- Indexes for dumped tables

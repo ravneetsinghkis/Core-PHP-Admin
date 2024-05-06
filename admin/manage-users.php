@@ -1,17 +1,40 @@
 <?php session_start();
 include_once('../includes/config.php');
+include_once('../send-customer-email.php');
 if (strlen($_SESSION['adminid']==0)) {
   header('location:logout.php');
-  } else{
+} else{
 // for deleting user
 if(isset($_GET['id']))
 {
-$adminid=$_GET['id'];
-$msg=mysqli_query($con,"delete from users where id='$adminid'");
-if($msg)
-{
-echo "<script>alert('Data deleted');</script>";
+    $adminid=$_GET['id'];
+    $msg=mysqli_query($con,"delete from users where id='$adminid'");
+    if($msg)
+    {
+    echo "<script>alert('Data deleted');</script>";
+    }
 }
+if(isset($_POST['approved_id']))
+{
+    $is_approved=$_POST['is_approved'];
+    $user_id=$_POST['user_id'];
+    $row= mysqli_query($con,"SELECT id,fname,email,is_approve FROM users WHERE id='$user_id'");
+    $num=mysqli_fetch_array($row);
+    if($num>0){
+        $email_id=$num['email'];
+        $msg=mysqli_query($con,"update users set is_approve='$is_approved' where id='$user_id'");
+        if($is_approved==0){
+            $subject="Account Unapproved";
+            $message="Hi ".$email_id."<br>";
+            $message.="Your Account has been Unapproved by Admin.Due to some reason. Please contact with administrator";
+        }else{
+            $subject="Account Approved";
+            $message="Congratulations ".$email_id."<br>";
+            $message.="Your Account has been Approved by Admin";
+        }
+        send_data_via_mail($email_id,$subject,$message);
+        echo "<script>alert('User Record Updated Successfully');</script>";
+    }
 }
    ?>
 <!DOCTYPE html>
@@ -80,10 +103,13 @@ echo "<script>alert('Data deleted');</script>";
                                   <td><?php echo $row['fname'];?></td>
                                   <td><?php echo $row['lname'];?></td>
                                   <td><?php echo $row['email'];?></td>
-                                   <td><div class="form-check form-switch">
-                                    <input class="form-check-input flexSwitchCheckDefault" id="flexSwitchCheckDefault<?php echo $row['id'];?>" <?php if($row['is_approve']==0){echo '';}else {echo 'checked';}?> type="checkbox" role="switch" onclick='handleClick(this);' data-id="<?php echo $row['id'];?>" data-email="<?php echo $row['email'];?>" disabled/>
-                                    </div>
-                                    </td>  
+                                    <td>
+                                        <form method="POST">
+                                        <input type="hidden" value="<?php print($row['is_approve']==1? $status=0:$status=1);?>" name="is_approved">
+                                        <input type="hidden" value="<?php echo $row['id'];?>" name="user_id">
+                                        <button type="submit" onclick="return IsuserActive(<?php echo $status; ?>);" class="text-gray-500 btn btn-secondary btn-sm" name="approved_id"><?php print($row['is_approve']==1? 'Approved' :'Not Approved');?></button>
+                                        </form>
+                                    </td>
                                   <td><?php echo $row['posting_date'];?></td>
                                   <td>
                                      
@@ -107,6 +133,21 @@ echo "<script>alert('Data deleted');</script>";
         <script src="../js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="../js/datatables-simple-demo.js"></script>
+        <script type="text/javascript">
+            function IsuserActive(status_value){
+            if (status_value == 1) {
+                var user_status = "Approved";
+            } else {
+                var user_status = "Not Approved";
+            }
+
+            var del = confirm("Are you sure you want to " + user_status + " the user status ?");
+            if (del == true) {
+                alert("User record status is updated successfully")
+            }
+            return del;
+            }
+        </script>
     </body>
 </html>
 <?php } ?>

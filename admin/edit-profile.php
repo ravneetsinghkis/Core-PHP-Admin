@@ -14,30 +14,7 @@ if(isset($_POST['update']))
     $is_approve=$_POST['is_approve'];
     $ret= mysqli_query($con,"SELECT id,fname,email,is_approve FROM users WHERE id='$userid'");
     $num=mysqli_fetch_array($ret);
-    if($num>0)
-    {
-        $oldapproval=$num['is_approve'];
-        if($is_approve!=$oldapproval){
-            $email_id=$num['email'];
-            $msg=mysqli_query($con,"update users set is_approve='$is_approve' where id='$userid'");
-            if($msg)
-                {
-                    if($is_approve==0){
-                        $subject="Account Unapproved";
-                        $message="Hi ".$email_id."<br>";
-                        $message.="Your Account has been Unapproved by Admin.Due to some reason. Please contact with administrator";
-                    }else{
-                        $subject="Account Approved";
-                        $message="Hi ".$email_id."<br>";
-                        $message.="Congratulations, Your Account has been Approved by Admin";
-                    }
-                    send_data_via_mail($email_id,$subject,$message);
-                    echo "<script>alert('Profile updated successfully');</script>";
-                    echo "<script type='text/javascript'> document.location = 'manage-users.php'; </script>";
-                }
-        }
-       // die;
-    }
+    
     $msg=mysqli_query($con,"update users set fname='$fname',lname='$lname',contactno='$contact' where id='$userid'");
     if($msg)
     {
@@ -87,7 +64,7 @@ if(isset($_POST['update']))
                                     <tr>
                                        <th>Approve User.</th>
                                        <td colspan="3">
-                                        <select class="form-control" id="is_approve" name="is_approve" required>
+                                        <select class="form-control" id="is_approve" name="is_approve" disabled>
                                             <option value="1" <?php if($result["is_approve"]==1){echo 'selected';}else { echo ''; } ?>>Yes</option>   
                                             <option value="0" <?php if($result["is_approve"]==0){echo 'selected';}else { echo ''; } ?>>No</option>   
                                         </select>

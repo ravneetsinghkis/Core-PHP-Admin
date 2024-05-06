@@ -10,23 +10,29 @@ if(isset($_POST['submit']))
     $email=$_POST['email'];
     $password=md5($_POST['password']);
     $contact=$_POST['contact'];
-$sql=mysqli_query($con,"select id from users where email='$email'");
-$row=mysqli_num_rows($sql);
-if($row>0)
-{
-    echo "<script>alert('Email id already exist with another account. Please try with other email id');</script>";
-} else{
-    $msg=mysqli_query($con,"insert into users(fname,lname,email,password,contactno) values('$fname','$lname','$email','$password','$contact')");
-    $subject="Register Email";
-    $message="Congratulations ".$fname." for register your account with us.";
-    send_data_via_mail($email,$subject,$message);
-if($msg)
-{
+    $sql=mysqli_query($con,"select id from users where email='$email'");
+    $row=mysqli_num_rows($sql);
+    if($row>0)
+    {
+        echo "<script>alert('Email id already exist with another account. Please try with other email id');</script>";
+    } else{
+        $msg=mysqli_query($con,"insert into users(fname,lname,email,password,contactno) values('$fname','$lname','$email','$password','$contact')");
+        $subject="Register Email";
+        $message="Congratulations ".$fname." for register your account with us.";
+        send_data_via_mail($email,$subject,$message);
+        // Send verification email
+        $verificationCode = md5($email);
+        $verificationLink = "http://localhost/core-php/verify.php?code=$verificationCode";
+        $message ="Hi ".$fname.",<br>";
+        $message .= "Click the link below to verify your email address:\n$verificationLink";
+        send_data_via_mail($email,$subject,$message);
+        if($msg)
+        {
 
-    echo "<script>alert('Registered successfully');</script>";
-    echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
-}
-}
+            echo "<script>alert('Registered successfully.Please check your email to verify this account');</script>";
+            echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
+        }
+    }
 }
 ?><!DOCTYPE html>
 <html lang="en">

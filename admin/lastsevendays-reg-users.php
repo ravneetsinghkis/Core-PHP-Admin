@@ -51,24 +51,24 @@ echo "<script>alert('Data deleted');</script>";
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                             <th>Sno.</th>
-                                  <th>First Name</th>
-                                  <th> Last Name</th>
-                                  <th> Email Id</th>
-                                  <th>Contact no.</th>
-                                  <th>Reg. Date</th>
-                                  <th>Action</th>
+                                            <th>Sno.</th>
+                                            <th>First Name</th>
+                                            <th> Last Name</th>
+                                            <th> Email Id</th>
+                                            <th>Contact no.</th>
+                                            <th>Reg. Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                              <th>Sno.</th>
-                                  <th>First Name</th>
-                                  <th> Last Name</th>
-                                  <th> Email Id</th>
-                                  <th>Contact no.</th>
-                                  <th>Reg. Date</th>
-                                  <th>Action</th>
+                                              <th>First Name</th>
+                                              <th> Last Name</th>
+                                              <th> Email Id</th>
+                                              <th>Contact no.</th>
+                                              <th>Reg. Date</th>
+                                              <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>

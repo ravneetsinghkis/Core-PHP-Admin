@@ -40,55 +40,52 @@ Search Results</h1>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                             <th>Sno.</th>
-                                  <th>First Name</th>
-                                  <th> Last Name</th>
-                                  <th> Email Id</th>
-                                  <th>Contact no.</th>
-                                  <th>Reg. Date</th>
-                                  <th>Action</th>
+                                            <th>Sno.</th>
+                                            <th>First Name</th>
+                                            <th> Last Name</th>
+                                            <th> Email Id</th>
+                                            <th>Contact no.</th>
+                                            <th>Reg. Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                             <th>Sno.</th>
-                                  <th>First Name</th>
-                                  <th> Last Name</th>
-                                  <th> Email Id</th>
-                                  <th>Contact no.</th>
-                                  <th>Reg. Date</th>
-                                  <th>Action</th>
+                                            <th>Sno.</th>
+                                            <th>First Name</th>
+                                            <th> Last Name</th>
+                                            <th> Email Id</th>
+                                            <th>Contact no.</th>
+                                            <th>Reg. Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-<?php 
-$searchkey=$_POST['searchkey'];
-$ret=mysqli_query($con,"select * from users where (fname like '%$searchkey%' || email like '%$searchkey%' || contactno like '%$searchkey%')");
+                                <?php 
+                                $searchkey=$_POST['searchkey'];
+                                $ret=mysqli_query($con,"select * from users where (fname like '%$searchkey%' || email like '%$searchkey%' || contactno like '%$searchkey%')");
                               $cnt=1;
                               while($row=mysqli_fetch_array($ret))
                               {?>
-                              <tr>
-                              <td><?php echo $cnt;?></td>
-                                  <td><?php echo $row['fname'];?></td>
-                                  <td><?php echo $row['lname'];?></td>
-                                  <td><?php echo $row['email'];?></td>
-                                  <td><?php echo $row['contactno'];?></td>  <td><?php echo $row['posting_date'];?></td>
-                                  <td>
-                                     
-                                     <a href="user-profile.php?uid=<?php echo $row['id'];?>"> 
-                          <i class="fas fa-edit"></i></a>
-                                     <a href="manage-users.php?id=<?php echo $row['id'];?>" onClick="return confirm('Do you really want to delete');"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                  </td>
-                              </tr>
-                              <?php $cnt=$cnt+1; }?>
-                                      
+                                        <tr>
+                                            <td><?php echo $cnt;?></td>
+                                            <td><?php echo $row['fname'];?></td>
+                                            <td><?php echo $row['lname'];?></td>
+                                            <td><?php echo $row['email'];?></td>
+                                            <td><?php echo $row['contactno'];?></td>  
+                                            <td><?php echo $row['posting_date'];?></td>
+                                            <td><a href="user-profile.php?uid=<?php echo $row['id'];?>"><i class="fas fa-edit"></i></a>
+                                             <a href="manage-users.php?id=<?php echo $row['id'];?>" onClick="return confirm('Do you really want to delete');"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                        <?php $cnt=$cnt+1; }?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </main>
-  <?php include('../includes/footer.php');?>
+            <?php include('../includes/footer.php');?>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
